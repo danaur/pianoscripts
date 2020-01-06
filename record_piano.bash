@@ -18,8 +18,8 @@ function listen_to_piano() {
 while : # Repeat until interrupt
 do
     while read -r line; do
-        if [[ "${line}" == *"Note on"* ]]
-        then
+	# Logging time spent practicing
+        if [[ "${line}" == *"Note on"* ]]; then
 	    echo "Saw note"
 	    todays_date=$(date +"%Y-%m-%d")
 	    current_time=$(date +"%H:%M")
@@ -31,15 +31,10 @@ do
                 echo "${current_time}" >> ${today_file}
 	        echo "Writing ${current_time} to ${today_file}"
             fi
-        fi
-
-        if [[ "${line}" =~ "Port unsubscribed" ]]
-        then
+        elif [[ "${line}" =~ "Port unsubscribed" ]]; then
 	    echo "Piano turned off, retrying connection"
             break
-        fi
-        if [[ "${line}" =~ "Invalid port" ]]
-        then
+        elif [[ "${line}" =~ "Invalid port" ]]; then
 	    echo "Piano not connected, retrying"
             break
         fi
