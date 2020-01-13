@@ -7,7 +7,7 @@ set noglob
 script_dir="$( cd "$( dirname "$0" )" && pwd )"
 
 piano_data="${script_dir}/pianodata"
-mkdir -p ${piano_data}
+mkdir -p "${piano_data}"
 
 sleep_time=30
 
@@ -25,10 +25,10 @@ do
 	    current_time=$(date +"%H:%M")
 	    #current_time=$(date +"%T")
             today_file="${piano_data}/${todays_date}"
-	    touch ${today_file}
-	    if [ $(grep -c "${current_time}" "${today_file}") -eq "0" ];
+	    touch "${today_file}"
+	    if [ "$(grep -c "${current_time}" "${today_file}")" -eq "0" ];
             then
-                echo "${current_time}" >> ${today_file}
+                echo "${current_time}" >> "${today_file}"
 	        echo "Writing ${current_time} to ${today_file}"
             fi
         elif [[ "${line}" =~ "Port unsubscribed" ]]; then
@@ -43,7 +43,7 @@ do
 	    ms_epoch=$(date +%s%3N)
             today_file="${piano_data}/${todays_date}_raw"
             logmsg="${ms_epoch} >>> ${line}"
-            echo "${logmsg}" >> ${today_file}
+            echo "${logmsg}" >> "${today_file}"
             echo "${logmsg}"
 	fi
 
